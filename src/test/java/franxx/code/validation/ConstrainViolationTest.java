@@ -36,9 +36,7 @@ public class ConstrainViolationTest {
             System.out.println("Annotation: " + violation.getConstraintDescriptor().getAnnotation());
             System.out.println("Invalid: " + violation.getInvalidValue());
             System.out.println();
-            violation.getPropertyPath().forEach(node -> {
-                System.out.println(node.getName());
-            });
+            violation.getPropertyPath().forEach(node -> System.out.println(node.getName()));
         }
     }
 
@@ -57,9 +55,7 @@ public class ConstrainViolationTest {
             System.out.println("Annotation: " + violation.getConstraintDescriptor().getAnnotation());
             System.out.println("Invalid: " + violation.getInvalidValue());
             System.out.println();
-            violation.getPropertyPath().forEach(node -> {
-                System.out.println(node.getName());
-            });
+            violation.getPropertyPath().forEach(node -> System.out.println(node.getName()));
         }
     }
 
