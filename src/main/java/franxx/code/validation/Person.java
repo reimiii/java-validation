@@ -1,6 +1,8 @@
 package franxx.code.validation;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class Person {
@@ -13,12 +15,24 @@ public class Person {
     @Size(max = 20, message = "last name length size is 20 char")
     private String lastName;
 
+    @Valid
+    @NotNull(message = "Address Cannot be null")
+    private Address address;
+
     public Person() {
     }
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getFirstName() {
@@ -39,9 +53,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return "Person{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + '}';
     }
 }
