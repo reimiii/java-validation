@@ -2,8 +2,11 @@ package franxx.code.validation;
 
 import franxx.code.validation.groups.CreditCard;
 import franxx.code.validation.groups.VirtualAccount;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.ConvertGroup;
+import jakarta.validation.groups.Default;
 import org.hibernate.validator.constraints.LuhnCheck;
 import org.hibernate.validator.constraints.Range;
 
@@ -20,9 +23,22 @@ public class Payment {
     @NotBlank(groups = {CreditCard.class}, message = "credit card cannot be blank")
     private String creditCard;
 
-//    @LuhnCheck(groups = {VirtualAccount.class}, message = "Invalid Credit Card Number")
     @NotBlank(groups = {VirtualAccount.class}, message = "virtual account cannot be blank")
     private String virtualAccount;
+
+    @Valid
+    @NotNull(groups = {VirtualAccount.class, CreditCard.class}, message = "Customer not null")
+    @ConvertGroup(from = CreditCard.class, to = Default.class)
+    @ConvertGroup(from = VirtualAccount.class, to = Default.class)
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public String getVirtualAccount() {
         return virtualAccount;
@@ -63,6 +79,7 @@ public class Payment {
                 ", amount=" + amount +
                 ", creditCard='" + creditCard + '\'' +
                 ", virtualAccount='" + virtualAccount + '\'' +
+                ", customer=" + customer +
                 '}';
     }
 }
