@@ -34,4 +34,12 @@ public abstract class AbstractValidationTest {
             System.out.println("+++++++++++++++++++++++++");
         }
     }
+    void validateWithGroups(Object object, Class<?>... groups) {
+        Set<ConstraintViolation<Object>> validate = validator.validate(object, groups);
+        for (ConstraintViolation<Object> violation : validate) {
+            System.out.println(violation.getMessage());
+            System.out.println(violation.getPropertyPath());
+            System.out.println("+++++++++++++++++++++++++");
+        }
+    }
 }
