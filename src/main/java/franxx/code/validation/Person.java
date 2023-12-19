@@ -55,4 +55,13 @@ public class Person {
     public String toString() {
         return "Person{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + '}';
     }
+
+    public void sayHello(@NotBlank(message = "cannot blank name") String name){
+        System.out.println("Hello " + name + ", my name is.. " + firstName);
+    }
+
+    @NotBlank(message = "full name cannot blank")
+    public String fullName() {
+        return firstName + " " + lastName;
+    }
 }
