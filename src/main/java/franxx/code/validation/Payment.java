@@ -6,6 +6,7 @@ import franxx.code.validation.payloads.EmailError;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import jakarta.validation.groups.ConvertGroup;
 import jakarta.validation.groups.Default;
 import org.hibernate.validator.constraints.LuhnCheck;
@@ -13,11 +14,18 @@ import org.hibernate.validator.constraints.Range;
 
 public class Payment {
 
-    @NotBlank(groups = {CreditCard.class, VirtualAccount.class}, message = "order id cannot be blank")
+    @NotBlank(groups = {CreditCard.class, VirtualAccount.class}, message = "{order.id.notblank}")
+    @Size(groups = {
+            VirtualAccount.class,
+            CreditCard.class
+    }, min = 1, max = 10, message = "{order.id.size}")
     private String orderId;
 
-    @Range(groups = {CreditCard.class, VirtualAccount.class}, min = 10_000L, max = 100_000_000, message = "amount must be 10,000 or 100,000,000")
-    @NotNull(groups = {CreditCard.class, VirtualAccount.class}, message = "amount cannot be null")
+    @Range(groups = {CreditCard.class, VirtualAccount.class},
+            min = 10_000L, max = 100_000_000,
+            message = "{order.amount.range}")
+    @NotNull(groups = {CreditCard.class, VirtualAccount.class},
+            message = "amount cannot be null")
     private Long amount;
 
     @LuhnCheck(
