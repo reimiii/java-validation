@@ -2,6 +2,7 @@ package franxx.code.validation;
 
 import franxx.code.validation.groups.CreditCard;
 import franxx.code.validation.groups.VirtualAccount;
+import franxx.code.validation.payloads.EmailError;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +20,11 @@ public class Payment {
     @NotNull(groups = {CreditCard.class, VirtualAccount.class}, message = "amount cannot be null")
     private Long amount;
 
-    @LuhnCheck(groups = {CreditCard.class}, message = "Invalid Credit Card Number")
+    @LuhnCheck(
+            groups = {CreditCard.class},
+            message = "Invalid Credit Card Number",
+            payload = {EmailError.class}
+    )
     @NotBlank(groups = {CreditCard.class}, message = "credit card cannot be blank")
     private String creditCard;
 

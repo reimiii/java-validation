@@ -1,7 +1,6 @@
 package franxx.code.validation;
 
 import franxx.code.validation.groups.CreditCard;
-import franxx.code.validation.groups.PaymentGroups;
 import org.junit.jupiter.api.Test;
 
 public class GroupConvertTest extends AbstractValidationTest {
