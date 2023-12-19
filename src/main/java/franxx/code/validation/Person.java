@@ -19,12 +19,17 @@ public class Person {
     @NotNull(message = "Address Cannot be null")
     private Address address;
 
+    @Valid
     public Person() {
     }
 
-    public Person(String firstName, String lastName) {
+    @Valid
+    public Person(@NotBlank(message = "firstName blank") String firstName,
+                  @NotBlank(message = "lastName blank") String lastName,
+                  @NotNull(message = "address is null") @Valid Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
     }
 
     public Address getAddress() {
@@ -56,7 +61,7 @@ public class Person {
         return "Person{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + '}';
     }
 
-    public void sayHello(@NotBlank(message = "cannot blank name") String name){
+    public void sayHello(@NotBlank(message = "cannot blank name") String name) {
         System.out.println("Hello " + name + ", my name is.. " + firstName);
     }
 
