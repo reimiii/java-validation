@@ -1,5 +1,7 @@
 package franxx.code.validation;
 
+import franxx.code.validation.constraints.CheckCase;
+import franxx.code.validation.enums.CaseMode;
 import franxx.code.validation.groups.CreditCard;
 import franxx.code.validation.groups.VirtualAccount;
 import franxx.code.validation.payloads.EmailError;
@@ -14,6 +16,8 @@ import org.hibernate.validator.constraints.Range;
 
 public class Payment {
 
+    @CheckCase(groups = {CreditCard.class, VirtualAccount.class},
+            mode = CaseMode.UPPER, message = "{order.id.upper}")
     @NotBlank(groups = {CreditCard.class, VirtualAccount.class}, message = "{order.id.notblank}")
     @Size(groups = {
             VirtualAccount.class,
