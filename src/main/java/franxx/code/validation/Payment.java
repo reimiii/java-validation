@@ -1,14 +1,12 @@
 package franxx.code.validation;
 
-import franxx.code.validation.constraints.CheckCase;
-import franxx.code.validation.enums.CaseMode;
+import franxx.code.validation.constraints.CheckOrderId;
 import franxx.code.validation.groups.CreditCard;
 import franxx.code.validation.groups.VirtualAccount;
 import franxx.code.validation.payloads.EmailError;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import jakarta.validation.groups.ConvertGroup;
 import jakarta.validation.groups.Default;
 import org.hibernate.validator.constraints.LuhnCheck;
@@ -16,13 +14,8 @@ import org.hibernate.validator.constraints.Range;
 
 public class Payment {
 
-    @CheckCase(groups = {CreditCard.class, VirtualAccount.class},
-            mode = CaseMode.UPPER, message = "{order.id.upper}")
-    @NotBlank(groups = {CreditCard.class, VirtualAccount.class}, message = "{order.id.notblank}")
-    @Size(groups = {
-            VirtualAccount.class,
-            CreditCard.class
-    }, min = 1, max = 10, message = "{order.id.size}")
+    @CheckOrderId(groups = {CreditCard.class, VirtualAccount.class},
+    message = "{order.id.invalid}")
     private String orderId;
 
     @Range(groups = {CreditCard.class, VirtualAccount.class},
