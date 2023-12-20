@@ -50,6 +50,12 @@ public abstract class AbstractValidationTest {
         }
     }
 
+    void validateWithException(Object object) {
+        Set<ConstraintViolation<Object>> validate = validator.validate(object);
+        if (!validate.isEmpty()) {
+            throw new ConstraintViolationException(validate);
+        }
+    }
     void validateWithGroups(Object object, Class<?>... groups) {
         Set<ConstraintViolation<Object>> validate = validator.validate(object, groups);
         for (ConstraintViolation<Object> violation : validate) {
